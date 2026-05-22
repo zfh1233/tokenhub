@@ -52,7 +52,7 @@ const AgentTutorials = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutorials.map((t) => <TutorialCard key={t._id} tutorial={t} />)}
+            {tutorials.map((t, i) => <TutorialCard key={t._id} tutorial={t} rank={i + 1} />)}
           </div>
         )}
       </div>

@@ -1,24 +1,39 @@
+import mongoose from 'mongoose';
 import Tutorial from '../models/Tutorial.js';
 
 export const getTutorials = async (req, res) => {
   try {
     const { agent, search, tag, page = 1, limit = 12, status } = req.query;
-    const filter = {};
-    if (agent) filter.agent = agent;
-    if (tag) filter.tags = tag;
-    if (status) filter.status = status;
-    else filter.status = 'approved';
-    if (search) filter.$text = { $search: search };
+    const match = {};
+    if (agent) match.agent = new mongoose.Types.ObjectId(agent);
+    if (tag) match.tags = tag;
+    if (status) match.status = status;
+    else match.status = 'approved';
+    if (search) match.$text = { $search: search };
 
-    const total = await Tutorial.countDocuments(filter);
-    const tutorials = await Tutorial.find(filter)
-      .populate('author', 'username avatar')
-      .populate('agent', 'name icon color')
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
+    const pipeline = [
+      { $match: match },
+      { $addFields: { likesCount: { $size: '$likes' } } },
+      { $sort: { likesCount: -1, createdAt: -1 } },
+      { $skip: (page - 1) * Number(limit) },
+      { $limit: Number(limit) },
+      { $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
+      { $lookup: { from: 'agents', localField: 'agent', foreignField: '_id', as: 'agent' } },
+      { $unwind: '$author' },
+      { $unwind: '$agent' },
+      {
+        $project: {
+          title: 1, content: 1, summary: 1, tags: 1, attachments: 1, likes: 1, likesCount: 1, status: 1, createdAt: 1, updatedAt: 1,
+          'author.username': 1, 'author.avatar': 1,
+          'agent.name': 1, 'agent.icon': 1, 'agent.color': 1,
+        },
+      },
+    ];
 
-    res.json({ tutorials, total, page: Number(page), pages: Math.ceil(total / limit) });
+    const total = await Tutorial.countDocuments(match);
+    const tutorials = await Tutorial.aggregate(pipeline);
+
+    res.json({ tutorials, total, page: Number(page), pages: Math.ceil(total / Number(limit)) });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

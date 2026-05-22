@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const TutorialCard = ({ tutorial }) => (
+const RANK_STYLES = {
+  1: 'bg-gradient-to-r from-yellow-400 to-amber-500 text-white',
+  2: 'bg-gradient-to-r from-gray-300 to-gray-400 text-white',
+  3: 'bg-gradient-to-r from-amber-600 to-amber-700 text-white',
+};
+
+const TutorialCard = ({ tutorial, rank }) => (
   <motion.div
     whileHover={{ y: -2 }}
     className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
@@ -9,6 +15,16 @@ const TutorialCard = ({ tutorial }) => (
     <Link to={`/tutorial/${tutorial._id}`}>
       <div className="p-5">
         <div className="flex items-center gap-2 mb-3">
+          {rank && rank <= 3 && (
+            <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${RANK_STYLES[rank] || 'bg-gray-100 text-gray-500'}`}>
+              {rank}
+            </span>
+          )}
+          {rank && rank > 3 && (
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold bg-gray-100 text-gray-500">
+              {rank}
+            </span>
+          )}
           {tutorial.agent && (
             <span
               className="text-xs px-2 py-0.5 rounded-full font-medium"
@@ -32,7 +48,7 @@ const TutorialCard = ({ tutorial }) => (
             <span>{tutorial.author?.username}</span>
           </div>
           <div className="flex items-center gap-3">
-            <span>❤️ {tutorial.likes?.length || 0}</span>
+            <span className="flex items-center gap-0.5">❤️ {tutorial.likesCount ?? tutorial.likes?.length ?? 0}</span>
             <span>{new Date(tutorial.createdAt).toLocaleDateString('zh-CN')}</span>
           </div>
         </div>
