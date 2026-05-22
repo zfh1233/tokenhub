@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="学习使用 OpenCode，免费开源的 AI 编程代理。">
+  <title>OpenCode小白教程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    window.__schoolThemePalettes = {
+      blue: { solid:"#2563eb", solidHover:"#1d4ed8", link:"#2563eb", linkDark:"#60a5fa", softBg:"#eff6ff", softBorder:"#bfdbfe", softText:"#1d4ed8", softBgDark:"rgba(37,99,235,0.18)", softBorderDark:"rgba(96,165,250,0.35)", softTextDark:"#93c5fd", cardText:"#dbeafe" },
+      indigo: { solid:"#4f46e5", solidHover:"#4338ca", link:"#4338ca", linkDark:"#a5b4fc", softBg:"#eef2ff", softBorder:"#c7d2fe", softText:"#4338ca", softBgDark:"rgba(79,70,229,0.18)", softBorderDark:"rgba(165,180,252,0.35)", softTextDark:"#c7d2fe", cardText:"#e0e7ff" },
+      violet: { solid:"#7c3aed", solidHover:"#6d28d9", link:"#6d28d9", linkDark:"#c4b5fd", softBg:"#f5f3ff", softBorder:"#ddd6fe", softText:"#6d28d9", softBgDark:"rgba(124,58,237,0.18)", softBorderDark:"rgba(196,181,253,0.35)", softTextDark:"#ddd6fe", cardText:"#ede9fe" },
+      purple: { solid:"#9333ea", solidHover:"#7e22ce", link:"#7e22ce", linkDark:"#d8b4fe", softBg:"#faf5ff", softBorder:"#e9d5ff", softText:"#7e22ce", softBgDark:"rgba(147,51,234,0.18)", softBorderDark:"rgba(216,180,254,0.35)", softTextDark:"#e9d5ff", cardText:"#f3e8ff" },
+      fuchsia: { solid:"#c026d3", solidHover:"#a21caf", link:"#a21caf", linkDark:"#f0abfc", softBg:"#fdf4ff", softBorder:"#f5d0fe", softText:"#a21caf", softBgDark:"rgba(192,38,211,0.18)", softBorderDark:"rgba(240,171,252,0.35)", softTextDark:"#f5d0fe", cardText:"#fae8ff" },
+      pink: { solid:"#db2777", solidHover:"#be185d", link:"#be185d", linkDark:"#f472b6", softBg:"#fdf2f8", softBorder:"#fbcfe8", softText:"#be185d", softBgDark:"rgba(219,39,119,0.18)", softBorderDark:"rgba(244,114,182,0.35)", softTextDark:"#f9a8d4", cardText:"#fce7f3" },
+      rose: { solid:"#e11d48", solidHover:"#be123c", link:"#be123c", linkDark:"#fda4af", softBg:"#fff1f2", softBorder:"#fecdd3", softText:"#be123c", softBgDark:"rgba(225,29,72,0.18)", softBorderDark:"rgba(251,113,133,0.35)", softTextDark:"#fda4af", cardText:"#ffe4e6" },
+      red: { solid:"#dc2626", solidHover:"#b91c1c", link:"#b91c1c", linkDark:"#fca5a5", softBg:"#fef2f2", softBorder:"#fecaca", softText:"#b91c1c", softBgDark:"rgba(220,38,38,0.18)", softBorderDark:"rgba(248,113,113,0.35)", softTextDark:"#fca5a5", cardText:"#fee2e2" },
+      orange: { solid:"#ea580c", solidHover:"#c2410c", link:"#c2410c", linkDark:"#fdba74", softBg:"#fff7ed", softBorder:"#fed7aa", softText:"#c2410c", softBgDark:"rgba(234,88,12,0.18)", softBorderDark:"rgba(251,146,60,0.35)", softTextDark:"#fdba74", cardText:"#ffedd5" },
+      amber: { solid:"#b45309", solidHover:"#92400e", link:"#92400e", linkDark:"#fcd34d", softBg:"#fffbeb", softBorder:"#fde68a", softText:"#92400e", softBgDark:"rgba(180,83,9,0.18)", softBorderDark:"rgba(251,191,36,0.35)", softTextDark:"#fcd34d", cardText:"#fef3c7" },
+      yellow: { solid:"#ca8a04", solidHover:"#a16207", link:"#a16207", linkDark:"#facc15", softBg:"#fefce8", softBorder:"#fef08a", softText:"#a16207", softBgDark:"rgba(202,138,4,0.18)", softBorderDark:"rgba(250,204,21,0.35)", softTextDark:"#fde047", cardText:"#fef9c3" },
+      lime: { solid:"#4d7c0f", solidHover:"#3f6212", link:"#4d7c0f", linkDark:"#bef264", softBg:"#f7fee7", softBorder:"#d9f99d", softText:"#4d7c0f", softBgDark:"rgba(77,124,15,0.18)", softBorderDark:"rgba(132,204,22,0.35)", softTextDark:"#bef264", cardText:"#ecfccb" },
+      green: { solid:"#15803d", solidHover:"#166534", link:"#166534", linkDark:"#86efac", softBg:"#f0fdf4", softBorder:"#bbf7d0", softText:"#166534", softBgDark:"rgba(21,128,61,0.18)", softBorderDark:"rgba(74,222,128,0.35)", softTextDark:"#86efac", cardText:"#dcfce7" },
+      emerald: { solid:"#059669", solidHover:"#047857", link:"#047857", linkDark:"#6ee7b7", softBg:"#ecfdf5", softBorder:"#a7f3d0", softText:"#047857", softBgDark:"rgba(5,150,105,0.18)", softBorderDark:"rgba(110,231,183,0.35)", softTextDark:"#a7f3d0", cardText:"#d1fae5" },
+      teal: { solid:"#0f766e", solidHover:"#115e59", link:"#0f766e", linkDark:"#5eead4", softBg:"#f0fdfa", softBorder:"#99f6e4", softText:"#115e59", softBgDark:"rgba(15,118,110,0.2)", softBorderDark:"rgba(94,234,212,0.35)", softTextDark:"#99f6e4", cardText:"#ccfbf1" },
+      cyan: { solid:"#0e7490", solidHover:"#155e75", link:"#155e75", linkDark:"#67e8f9", softBg:"#ecfeff", softBorder:"#a5f3fc", softText:"#155e75", softBgDark:"rgba(14,116,144,0.2)", softBorderDark:"rgba(103,232,249,0.35)", softTextDark:"#a5f3fc", cardText:"#cffafe" },
+      sky: { solid:"#0284c7", solidHover:"#0369a1", link:"#0369a1", linkDark:"#7dd3fc", softBg:"#f0f9ff", softBorder:"#bae6fd", softText:"#0369a1", softBgDark:"rgba(2,132,199,0.18)", softBorderDark:"rgba(56,189,248,0.35)", softTextDark:"#bae6fd", cardText:"#e0f2fe" },
+      slate: { solid:"#475569", solidHover:"#334155", link:"#334155", linkDark:"#cbd5e1", softBg:"#f8fafc", softBorder:"#cbd5e1", softText:"#334155", softBgDark:"rgba(71,85,105,0.3)", softBorderDark:"rgba(148,163,184,0.35)", softTextDark:"#cbd5e1", cardText:"#e2e8f0" }
+    };
+    window.__applySchoolTheme = function(t) {
+      var p = window.__schoolThemePalettes[t] || window.__schoolThemePalettes.blue;
+      var r = document.documentElement;
+      r.style.setProperty("--theme-solid", p.solid);
+      r.style.setProperty("--theme-solid-hover", p.solidHover);
+      r.style.setProperty("--theme-link", p.link);
+      r.style.setProperty("--theme-link-dark", p.linkDark);
+      r.style.setProperty("--theme-soft-bg", p.softBg);
+      r.style.setProperty("--theme-soft-border", p.softBorder);
+      r.style.setProperty("--theme-soft-text", p.softText);
+      r.style.setProperty("--theme-soft-bg-dark", p.softBgDark);
+      r.style.setProperty("--theme-soft-border-dark", p.softBorderDark);
+      r.style.setProperty("--theme-soft-text-dark", p.softTextDark);
+      r.style.setProperty("--theme-card-text", p.cardText);
+      r.dataset.themeColor = window.__schoolThemePalettes[t] ? t : "blue";
+    };
+    try { window.__applySchoolTheme(localStorage.getItem("themeColor") || "blue"); } catch(e) { window.__applySchoolTheme("blue"); }
+  </script>
+  <script>
+    (function(){
+      var saved=localStorage.getItem("darkMode");
+      if(saved==="true"||(saved===null&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
+        document.documentElement.classList.add("dark");
+      }
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(e) {
+        if(localStorage.getItem("darkMode")===null){
+          document.documentElement.classList.toggle("dark", e.matches);
+        }
+      });
+    })();
+  </script>
+</head>
+<body class="min-h-screen">
+
+  <div class="corner-icons">
+    <button id="search-trigger" type="button" aria-label="搜索" title="搜索 (&#8984;K / Ctrl+K)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </button>
+  </div>
+
+  <div id="search-modal" class="search-modal hidden">
+    <div class="search-modal-backdrop" id="search-modal-backdrop"></div>
+    <div class="search-modal-content">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="search-input" placeholder="搜索课程、练习和更多..." autocomplete="off">
+        <kbd>ESC</kbd>
+      </div>
+      <div id="search-results" class="search-results">
+        <div class="search-results-empty">开始输入以搜索...</div>
+      </div>
+    </div>
+  </div>
+
+  <header class="mobile-header">
+    <a href="#/" class="mobile-logo">OpenCode小白教程</a>
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <button id="mobile-search-trigger" type="button" aria-label="搜索" style="padding:0.5rem;color:var(--text-secondary);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button id="menu-toggle" aria-label="切换导航">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path id="menu-icon-close" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display:none"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <nav id="sidebar" class="sidebar">
+      <a href="#/" class="sidebar-logo">OpenCode小白教程</a>
+
+      <ol class="sidebar-nav">
+        <li data-sidebar-slug="installation">
+          <a href="#/lessons/installation"><span><span class="nav-num">01.</span> 安装</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="interview">
+          <a href="#/lessons/interview"><span><span class="nav-num">02.</span> 面试</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="configuration">
+          <a href="#/lessons/configuration"><span><span class="nav-num">03.</span> 配置</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="permissions">
+          <a href="#/lessons/permissions"><span><span class="nav-num">04.</span> 权限</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="instructions">
+          <a href="#/lessons/instructions"><span><span class="nav-num">05.</span> 指令</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="models">
+          <a href="#/lessons/models"><span><span class="nav-num">06.</span> 模型</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="commands">
+          <a href="#/lessons/commands"><span><span class="nav-num">07.</span> 命令</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="skills">
+          <a href="#/lessons/skills"><span><span class="nav-num">08.</span> 技能</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="tools">
+          <a href="#/lessons/tools"><span><span class="nav-num">09.</span> 工具</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="plugins">
+          <a href="#/lessons/plugins"><span><span class="nav-num">10.</span> 插件</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="agents">
+          <a href="#/lessons/agents"><span><span class="nav-num">11.</span> 代理</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="sessions">
+          <a href="#/lessons/sessions"><span><span class="nav-num">12.</span> 会话</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="images">
+          <a href="#/lessons/images"><span><span class="nav-num">13.</span> 图像</span><span class="sidebar-check"></span></a>
+        </li>
+        <li data-sidebar-slug="workspaces">
+          <a href="#/lessons/workspaces"><span><span class="nav-num">14.</span> 工作区</span><span class="sidebar-check"></span></a>
+        </li>
+      </ol>
+
+      <div class="sidebar-section">
+        <span class="sidebar-section-title">练习</span>
+        <ol class="sidebar-nav">
+          <li data-sidebar-exercise-slug="build-a-website">
+            <a href="#/exercises/build-a-website"><span>构建网站</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="run-ai-models">
+            <a href="#/exercises/run-ai-models"><span>运行 AI 模型</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="transcribe-speech">
+            <a href="#/exercises/transcribe-speech"><span>语音转文字</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="drive-a-browser">
+            <a href="#/exercises/drive-a-browser"><span>操控浏览器</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="post-to-social-media">
+            <a href="#/exercises/post-to-social-media"><span>发布社交媒体</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="use-git-and-github">
+            <a href="#/exercises/use-git-and-github"><span>使用 Git 和 GitHub</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="achieve-inbox-zero">
+            <a href="#/exercises/achieve-inbox-zero"><span>收件箱归零</span><span class="sidebar-check"></span></a>
+          </li>
+          <li data-sidebar-exercise-slug="use-an-ai-gateway">
+            <a href="#/exercises/use-an-ai-gateway"><span>使用 AI 网关</span><span class="sidebar-check"></span></a>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sidebar-section">
+        <a href="#/about" class="sidebar-link" data-sidebar-page="about">关于</a>
+        <a href="#/tips" class="sidebar-link" data-sidebar-page="tips">技巧</a>
+        <a href="#/cheatsheet" class="sidebar-link" data-sidebar-page="cheatsheet">速查表</a>
+        <a href="#/changelog" class="sidebar-link" data-sidebar-page="changelog">更新日志</a>
+        <a href="#/glossary" class="sidebar-link" data-sidebar-page="glossary">术语表</a>
+        <a href="#/contributing" class="sidebar-link" data-sidebar-page="contributing">贡献</a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-item group">
+          <a href="https://opencode.ai" target="_blank" rel="noopener noreferrer" aria-label="用 OpenCode 构建">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M10 17H4V10H10V17Z" fill="currentColor" opacity="0.4"></path><path d="M10 7H4V17H10V7ZM13 20H1V4H13V20Z" fill="currentColor" opacity="0.6"></path></svg>
+          </a>
+          <span class="tooltip">用 OpenCode 构建</span>
+        </div>
+        <div class="sidebar-footer-item group">
+          <a href="https://opencode.ai/discord" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path></svg>
+          </a>
+          <span class="tooltip">OpenCode 支持社区</span>
+        </div>
+        <p style="font-size:0.7rem;color:var(--text-tertiary);margin:0.75rem 0 0;padding:0 0.5rem;line-height:1.4;">该教程来源于 <a href="https://opencode.school/" target="_blank" rel="noopener noreferrer" style="color:var(--theme-color);">https://opencode.school/</a></p>
+      </div>
+    </nav>
+
+    <main id="main-content" class="main-content">
+    </main>
+  </div>
+
+  <button id="dark-toggle" class="dark-toggle" aria-label="切换深色模式" title="切换深色模式">
+    <svg class="dark-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <svg class="dark-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
